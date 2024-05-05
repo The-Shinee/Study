@@ -1,1 +1,1 @@
-# Algorithm_Study
+# 공부저장소
