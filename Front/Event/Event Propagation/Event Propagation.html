@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Propagation Example</title>
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            border: 1px solid black;
+            padding: 20px;
+        }
+        .child {
+            border: 1px solid red;
+            padding: 10px;
+        }
+        .target {
+            border: 1px solid green;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="child">
+        <div class="target">Target</div>
+    </div>
+</div>
+
+<script>
+    const container = document.querySelector('.container');
+    const child = document.querySelector('.child');
+    const target = document.querySelector('.target');
+
+    function logEvent(event, phase) {
+        console.log(`${event.currentTarget.classList.value} - ${phase}`);
+    }
+
+    // 캡처링 단계
+    container.addEventListener('click', (event) => logEvent(event, 'Capturing'), true);
+    child.addEventListener('click', (event) => logEvent(event, 'Capturing'), true);
+    target.addEventListener('click', (event) => logEvent(event, 'Capturing'), true);
+
+    // 타깃 단계
+    target.addEventListener('click', (event) => logEvent(event, 'Target'));
+
+    // 버블링 단계
+    target.addEventListener('mouseleave', (event) => logEvent(event, 'Bubbling'), false);
+    child.addEventListener('click', (event) => logEvent(event, 'Bubbling'), false);
+    container.addEventListener('click', (event) => logEvent(event, 'Bubbling'), false);
+</script>
+</body>
+</html>
