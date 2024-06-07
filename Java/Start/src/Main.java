@@ -1,116 +1,94 @@
-import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        final int ADD = 1;
-        final int SUB = 2;
-        final int MUL = 3;
-        final int DIV = 4;
-        final int EXIT = 0;
+        // Scanner sc = new Scanner(System.in);
 
-        Scanner sc = new Scanner(System.in);
+        // 1.
+        // System.out.println(getMiddleThree(sc.nextLine()));
 
-        int[] availableCommands = {ADD, SUB, MUL, DIV, EXIT};
-        int command;
-        double firstValue;
-        double secondValue;
+        // 2.
+        //System.out.println(barkingDogProblem(true, 6));
+        //System.out.println(barkingDogProblem(true, 7));
+        //System.out.println(barkingDogProblem(false, 5));
 
-        do {
-            System.out.println("원하는 기능을 선택하세요");
-            System.out.println("1. 덧셈 /2. 뺄셈 /3. 곱셈 /4. 나눗셈 /0. 종료");
+        // 3.
+        // 주어진 문장에서 category 에 해당하는 모든 단어를 출력하세요.
+        //String str = "When organizing items, always label each group with the appropriate category. category: books, category: electronics, category: clothing, category: kitchenware, and so on. ";
+        //printCategory(str);
 
-            command = sc.nextInt();
+        // 4.
+        // 다음 문장을 for 문을 이용해 순회하면서 안에 있는 문자를 모두 순서대로 한번씩 콘솔로 출력해보세요.
+        // 그리고 거꾸로 가장 마지막 문자부터 출력하도록 만들어 보세요.
+        //String someTxt = "물방울이 떨어지는 소리를 들으며 나는 한적한 숲속 오두막에서 책을 읽고 있었다.";
+        //printSpelling(someTxt, true);
 
-            if (!validator(availableCommands, command)) {
-                System.out.println("올바른 입력이 아닙니다.");
-                continue;
+        // 5.
+        /*
+         *    배열안에서 특정한 데이터를 찾는 함수를 만들어보세요. 찾을 수 있으면 해당원소의 index 값을 반환하고, 찾지 못하면 -1을 반환합니다. */
+        System.out.println(search(new int[] {1,2,3,4,5}, 5));
+        System.out.println(search(new int[] {1,2,3,4,5}, 6));
+    }
+
+    static String getMiddleThree(String str) {
+        if (str.length() < 3)
+            return str;
+
+        int middle = str.length() / 2;
+
+        return str.substring(middle - 1, middle + 2);
+    }
+
+    static String barkingDogProblem(boolean isBark, int hour) {
+        if (hour < 7 || hour >= 20) {
+            if (isBark) {
+                return "짖으면 안돼!!";
+            } else {
+                return "든든하군!";
             }
+        }
 
-            if (command == EXIT) {
+        return "든든하군!";
+    }
+
+    static void printCategory(String str) {
+        final String FILTER_VALUE = "category: ";
+        int index = 0;
+        while(true){
+            int startIndex = str.indexOf(FILTER_VALUE, index) + FILTER_VALUE.length();
+            if(startIndex - FILTER_VALUE.length() == -1)
                 break;
+
+            int endIndex = str.indexOf(',', startIndex);
+            String value = str.substring(startIndex, endIndex);
+            System.out.println(value);
+            index = endIndex + 1;
+        }
+    }
+
+    static void printSpelling(String str){
+        printSpelling(str, false);
+    }
+
+    static void printSpelling(String str, boolean isReverse){
+        if(isReverse){
+            for(int i = str.length() - 1 ; i >= 0 ; i--){
+                System.out.println(str.charAt(i));
             }
-
-            System.out.println("첫 번째 값을 입력하고 엔터를 누르세요.");
-            firstValue = sc.nextDouble();
-
-            System.out.println("두 번째 값을 입력하고 엔터를 누르세요.");
-            secondValue = sc.nextDouble();
-
-            printCalcResult(firstValue, secondValue, command);
-
-        } while (true);
-
-        System.out.println("프로그램을 종료합니다.");
-        sc.close();
+        }
+        else{
+            for(int i = 0 ; i < str.length() ; i++){
+                System.out.println(str.charAt(i));
+            }
+        }
     }
 
-    static double calc(double first, double second, int operator) {
-        return switch (operator) {
-            case 1 -> add(first, second);
-            case 2 -> sub(first, second);
-            case 3 -> mul(first, second);
-            case 4 -> div(first, second);
-            default -> throw new IllegalStateException("Unexpected value: " + operator);
-        };
-    }
-
-    static double add(double first, double second) {
-        return first + second;
-    }
-
-    static double sub(double first, double second) {
-        return first - second;
-    }
-
-    static double mul(double first, double second) {
-        return first * second;
-    }
-
-    static double div(double first, double second) {
-        return first / second;
-    }
-
-    static char printOperator(int operator) {
-        return switch (operator) {
-            case 1 -> '+';
-            case 2 -> '-';
-            case 3 -> '*';
-            case 4 -> '/';
-            default -> throw new IllegalStateException("Unexpected value: " + operator);
-        };
-    }
-
-    static void printCalcResult(double first, double second, int operator) {
-
-        String firstFormatted = doubleFormatter(first);
-        String secondFormatted = doubleFormatter(second);
-        String calcResultFormatted = doubleFormatter(calc(first, second, operator));
-
-        String message = secondFormatted.equals("0") ?
-                "Error : 0으로 나눌 수 없습니다." :
-                firstFormatted + " " + printOperator(operator) + " " + secondFormatted + " = " + calcResultFormatted;
-
-        System.out.println(message);
-    }
-
-    static String doubleFormatter(double value) {
-        DecimalFormat df = new DecimalFormat("#.##");
-        String formatted = df.format(value);
-
-        if (formatted.endsWith(".00") || formatted.endsWith(".0")) {
-            formatted = formatted.substring(0, formatted.indexOf('.'));
+    static int search(int[] nums, int target){
+        for(int i = 0 ; i < nums.length ; i++){
+            if(nums[i] == target)
+                return i;
         }
 
-        return formatted;
-    }
-
-    static boolean validator(int[] commands, int command) {
-        for (int value : commands) {
-            if (value == command)
-                return true;
-        }
-
-        return false;
+        return -1;
     }
 }
