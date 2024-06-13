@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 
 public class Person {
-    public String Name;
+    public final String Name;
+    
+    public static final double PI = 3.141592;
     public int Age;
     public int Cash;
     public ArrayList<Product> Assets;
