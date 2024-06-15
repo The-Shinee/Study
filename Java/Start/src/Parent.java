@@ -4,16 +4,16 @@ public class Parent {
 
     private int money;
 
-    Parent(){
+    Parent() {
         money = 0;
     }
 
-    public int getMoney(){
+    public int getMoney() {
         return money;
     }
 
-    public int setMoney(int value, int flag){
-        switch(flag){
+    public int setMoney(int value, int flag) {
+        switch (flag) {
             case ADD:
                 money += value;
                 break;
@@ -27,7 +27,7 @@ public class Parent {
         return money;
     }
 
-    public int save(){
+    public int save() {
         return setMoney(10000, ADD);
     }
 }
