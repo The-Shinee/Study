@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class SQLHandler {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         final String URL = "jdbc:MySQL://localhost:3306/";
         final String DB_NAME = "test_db";
         final String USER_ID = "root";
