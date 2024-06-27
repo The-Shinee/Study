@@ -1,16 +1,17 @@
-import Algorithm.BOJ_10810;
+package Algorithm;
 
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Main {
-    public static void main(String[] args) {
+public class BOJ_10810 {
+    public static void Func(){
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
         int m = sc.nextInt();
 
         int[] arr = new int[n];
         Arrays.fill(arr, 0);
+
 
         for(int i = 0 ; i < m ; i++){
             int a = sc.nextInt();
