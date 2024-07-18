@@ -7,6 +7,6 @@ public class BOJ_27866 {
         Scanner sc = new Scanner(System.in);
         String str = sc.nextLine();
         int a = sc.nextInt();
-        System.out.println(str.charAt(a - 1));
+        System.out.println(str.charAt(a -  1));
     }
 }
