@@ -15,7 +15,6 @@ public class BOJ_5597 {
             int a = sc.nextInt();
             arr[a - 1] = 0;
         }
-
         for (int n : arr) {
             if (n != 0) {
                 System.out.println(n);
